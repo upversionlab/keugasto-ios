@@ -8,10 +8,23 @@
 
 import UIKit
 
-class MenuViewController: UITableViewController {
+class MenuViewController: UIViewController, UITableViewDataSource {
 
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        return
+    private let menuEntries = [
+        "Add category",
+        "Balance"
+    ]
+
+    // MARK: UITableViewDataSource
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return menuEntries.count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Menu Entry", forIndexPath: indexPath) as! MenuEntryTableViewCell
+        cell.menuEntryLabel.text = menuEntries[indexPath.row]
+        return cell
     }
 
 }
