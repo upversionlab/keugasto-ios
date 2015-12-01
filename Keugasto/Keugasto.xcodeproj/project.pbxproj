@@ -16,6 +16,13 @@
 		AD835E7F1BE9799A00F40BD9 /* Keugasto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD835E7B1BE9799A00F40BD9 /* Keugasto.xcdatamodeld */; };
 		AD835E811BE979B700F40BD9 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD835E801BE979B700F40BD9 /* Expense.swift */; };
 		AD835E831BE97D0500F40BD9 /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD835E821BE97D0500F40BD9 /* ExpenseTableViewCell.swift */; };
+		ADA8349B1BFBD40300CFF87D /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA8349A1BFBD40300CFF87D /* BalanceViewController.swift */; };
+		ADA8349D1BFBD43A00CFF87D /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA8349C1BFBD43A00CFF87D /* AddCategoryViewController.swift */; };
+		ADA8349F1BFBDAFF00CFF87D /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA8349E1BFBDAFF00CFF87D /* Category.swift */; };
+		ADB112381C0E3DCE00596F23 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB112371C0E3DCE00596F23 /* CategoriesViewController.swift */; };
+		ADB1123A1C0E43D300596F23 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB112391C0E43D300596F23 /* CategoryTableViewCell.swift */; };
+		ADB1123C1C0E526100596F23 /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB1123B1C0E526100596F23 /* CategoryPickerViewController.swift */; };
+		ADB1123E1C0E632A00596F23 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB1123D1C0E632A00596F23 /* DatePickerViewController.swift */; };
 		ADF102A81BF28C5D0033A43C /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF102A71BF28C5D0033A43C /* AddExpenseViewController.swift */; };
 		ADF102AA1BF29A0F0033A43C /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF102A91BF29A0F0033A43C /* ExpensesViewController.swift */; };
 		ADF102AC1BF2A9070033A43C /* MenuEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF102AB1BF2A9070033A43C /* MenuEntryTableViewCell.swift */; };
@@ -33,6 +40,13 @@
 		AD835E7C1BE9799A00F40BD9 /* Keugasto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Keugasto.xcdatamodel; sourceTree = "<group>"; };
 		AD835E801BE979B700F40BD9 /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		AD835E821BE97D0500F40BD9 /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
+		ADA8349A1BFBD40300CFF87D /* BalanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
+		ADA8349C1BFBD43A00CFF87D /* AddCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
+		ADA8349E1BFBDAFF00CFF87D /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		ADB112371C0E3DCE00596F23 /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		ADB112391C0E43D300596F23 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		ADB1123B1C0E526100596F23 /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
+		ADB1123D1C0E632A00596F23 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		ADF102A71BF28C5D0033A43C /* AddExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
 		ADF102A91BF29A0F0033A43C /* ExpensesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
 		ADF102AB1BF2A9070033A43C /* MenuEntryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuEntryTableViewCell.swift; sourceTree = "<group>"; };
@@ -90,7 +104,13 @@
 		AD835E771BE9799A00F40BD9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				ADA8349C1BFBD43A00CFF87D /* AddCategoryViewController.swift */,
 				ADF102A71BF28C5D0033A43C /* AddExpenseViewController.swift */,
+				ADA8349A1BFBD40300CFF87D /* BalanceViewController.swift */,
+				ADB112371C0E3DCE00596F23 /* CategoriesViewController.swift */,
+				ADB1123B1C0E526100596F23 /* CategoryPickerViewController.swift */,
+				ADB112391C0E43D300596F23 /* CategoryTableViewCell.swift */,
+				ADB1123D1C0E632A00596F23 /* DatePickerViewController.swift */,
 				ADF102A91BF29A0F0033A43C /* ExpensesViewController.swift */,
 				AD835E821BE97D0500F40BD9 /* ExpenseTableViewCell.swift */,
 				AD835E781BE9799A00F40BD9 /* MainViewController.swift */,
@@ -105,6 +125,7 @@
 			children = (
 				AD835E7B1BE9799A00F40BD9 /* Keugasto.xcdatamodeld */,
 				AD835E801BE979B700F40BD9 /* Expense.swift */,
+				ADA8349E1BFBDAFF00CFF87D /* Category.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -183,12 +204,19 @@
 				AD835E831BE97D0500F40BD9 /* ExpenseTableViewCell.swift in Sources */,
 				ADF102AA1BF29A0F0033A43C /* ExpensesViewController.swift in Sources */,
 				AD835E7F1BE9799A00F40BD9 /* Keugasto.xcdatamodeld in Sources */,
+				ADB1123C1C0E526100596F23 /* CategoryPickerViewController.swift in Sources */,
+				ADB1123E1C0E632A00596F23 /* DatePickerViewController.swift in Sources */,
 				AD835E5C1BE95E3D00F40BD9 /* AppDelegate.swift in Sources */,
 				AD835E7E1BE9799A00F40BD9 /* MenuViewController.swift in Sources */,
 				ADF102AC1BF2A9070033A43C /* MenuEntryTableViewCell.swift in Sources */,
 				AD835E7D1BE9799A00F40BD9 /* MainViewController.swift in Sources */,
+				ADA8349B1BFBD40300CFF87D /* BalanceViewController.swift in Sources */,
 				AD835E811BE979B700F40BD9 /* Expense.swift in Sources */,
 				ADF102A81BF28C5D0033A43C /* AddExpenseViewController.swift in Sources */,
+				ADA8349D1BFBD43A00CFF87D /* AddCategoryViewController.swift in Sources */,
+				ADB1123A1C0E43D300596F23 /* CategoryTableViewCell.swift in Sources */,
+				ADA8349F1BFBDAFF00CFF87D /* Category.swift in Sources */,
+				ADB112381C0E3DCE00596F23 /* CategoriesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

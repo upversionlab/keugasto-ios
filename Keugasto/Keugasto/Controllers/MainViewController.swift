@@ -10,9 +10,20 @@ import UIKit
 
 class MainViewController: UIViewController {
 
+    @IBOutlet private weak var contentContainerView: UIView!
     @IBOutlet private weak var menuContainerView: UIView!
     @IBOutlet private weak var menuBackgroundView: UIView!
     @IBOutlet private weak var menuConstraint: NSLayoutConstraint!
+
+    private var menuViewController: UIViewController!
+
+    // MARK: UIViewController
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "Menu Segue") {
+            menuViewController = segue.destinationViewController
+        }
+    }
 
     // MARK: Menu actions
 
@@ -39,6 +50,36 @@ class MainViewController: UIViewController {
 
     @IBAction private func didClickOutsideMenu(sender: AnyObject) {
         didClickOnMenu()
+    }
+
+    func switchToViewControllerWithIdentifier(identifier: String) {
+        let viewController = storyboard?.instantiateViewControllerWithIdentifier(identifier)
+        if viewController != nil {
+            replaceContentViewControllerBy(viewController!)
+        }
+    }
+
+    private func replaceContentViewControllerBy(viewController: UIViewController) {
+        // Remove all child view controllers that are not the menu view controller
+        for viewController in childViewControllers {
+            if viewController != menuViewController {
+                viewController.removeFromParentViewController()
+            }
+        }
+
+        // Clear content view
+        for view in contentContainerView.subviews {
+            view.removeFromSuperview()
+        }
+
+        // Add the specified view controller as a child view controller
+        addChildViewController(viewController)
+
+        // Add the view controller's view in the content container view
+        contentContainerView.addSubview(viewController.view)
+
+        // Notifying the view controller of these movements
+        viewController.didMoveToParentViewController(self)
     }
 
 }

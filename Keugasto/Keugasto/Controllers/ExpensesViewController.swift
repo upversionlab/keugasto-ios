@@ -13,9 +13,14 @@ class ExpensesViewController: UIViewController, UITableViewDataSource, AddExpens
     @IBOutlet private weak var noExpensesLabel: UILabel!
     @IBOutlet private weak var expensesTableView: UITableView!
 
-    private var expenses : [Expense]?
+    private var expenses : [Expense]!
 
     // MARK: UIViewController
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        expenses = Expense.getAllExpenses()
+    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Add Expense Segue" {
@@ -40,9 +45,15 @@ class ExpensesViewController: UIViewController, UITableViewDataSource, AddExpens
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let expense = expenses![indexPath.row]
+
+        let numberFormatter = NSNumberFormatter()
+        numberFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+
         let cell = tableView.dequeueReusableCellWithIdentifier("Expense", forIndexPath: indexPath) as! ExpenseTableViewCell
-        cell.nameLabel.text = expenses![indexPath.row].name
-        cell.valueLabel.text = String(format: "R$ %.02f", expenses![indexPath.row].value)
+        cell.nameLabel.text = expense.category.name
+        cell.valueLabel.text = numberFormatter.stringFromNumber(expense.value)
+
         return cell
     }
 

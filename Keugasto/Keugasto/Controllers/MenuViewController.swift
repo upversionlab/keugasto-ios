@@ -8,10 +8,11 @@
 
 import UIKit
 
-class MenuViewController: UIViewController, UITableViewDataSource {
+class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     private let menuEntries = [
-        "Add category",
+        "Expenses",
+        "Categories",
         "Balance"
     ]
 
@@ -25,6 +26,12 @@ class MenuViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("Menu Entry", forIndexPath: indexPath) as! MenuEntryTableViewCell
         cell.menuEntryLabel.text = menuEntries[indexPath.row]
         return cell
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let mainViewController = UIApplication.sharedApplication().keyWindow?.rootViewController as? MainViewController
+        mainViewController?.switchToViewControllerWithIdentifier("\(menuEntries[indexPath.row]) Screen")
+        mainViewController?.didClickOnMenu()
     }
 
 }
