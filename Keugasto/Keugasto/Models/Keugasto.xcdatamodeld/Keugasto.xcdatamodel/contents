@@ -3,13 +3,13 @@
     <entity name="Category" representedClassName="Category" syncable="YES">
         <attribute name="limitNumber" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="expenses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="category" inverseEntity="Expense" syncable="YES"/>
+        <relationship name="expensesSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="category" inverseEntity="Expense" syncable="YES"/>
     </entity>
     <entity name="Expense" representedClassName="Expense" syncable="YES">
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="469489980" syncable="YES"/>
         <attribute name="userDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="valueNumber" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="expenses" inverseEntity="Category" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="expensesSet" inverseEntity="Category" syncable="YES"/>
     </entity>
     <elements>
         <element name="Category" positionX="-63" positionY="-18" width="128" height="90"/>

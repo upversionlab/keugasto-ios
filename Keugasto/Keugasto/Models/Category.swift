@@ -14,6 +14,7 @@ class Category: NSManagedObject {
 
     @NSManaged var name: String!
     @NSManaged var limitNumber: NSNumber?
+    @NSManaged var expensesSet: NSSet
 
     var limit: Float? {
         get {
@@ -22,6 +23,12 @@ class Category: NSManagedObject {
 
         set(newLimit) {
             limitNumber = newLimit
+        }
+    }
+
+    var expenses: [Expense] {
+        get {
+            return expensesSet.allObjects as! [Expense]
         }
     }
 

@@ -33,10 +33,10 @@ class ExpensesViewController: UIViewController, UITableViewDataSource, AddExpens
     // MARK: UITableViewDataSource
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if expenses != nil && expenses!.count > 0 {
+        if expenses.count > 0 {
             noExpensesLabel.hidden = true
             expensesTableView.hidden = false
-            return expenses!.count
+            return expenses.count
         } else {
             noExpensesLabel.hidden = false
             expensesTableView.hidden = true
@@ -45,7 +45,7 @@ class ExpensesViewController: UIViewController, UITableViewDataSource, AddExpens
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let expense = expenses![indexPath.row]
+        let expense = expenses[indexPath.row]
 
         let numberFormatter = NSNumberFormatter()
         numberFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
@@ -60,11 +60,7 @@ class ExpensesViewController: UIViewController, UITableViewDataSource, AddExpens
     // MARK: AddExpenseDelegate
 
     func didAddExpense(expense: Expense) {
-        if expenses == nil {
-            expenses = []
-        }
-        expenses?.append(expense)
-
+        expenses.append(expense)
         expensesTableView.reloadData()
     }
 
