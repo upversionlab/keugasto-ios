@@ -14,7 +14,7 @@ protocol AddExpenseDelegate {
     optional func didCancelAddExpense()
 }
 
-class AddExpenseViewController: UIViewController, UITextFieldDelegate, CategoryPickerDelegate, DatePickerDelegate {
+class AddExpenseViewController: BaseViewController, UITextFieldDelegate, CategoryPickerDelegate, DatePickerDelegate {
 
     var delegate: AddExpenseDelegate?
 

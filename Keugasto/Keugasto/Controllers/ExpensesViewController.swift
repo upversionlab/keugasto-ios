@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExpensesViewController: UIViewController, UITableViewDataSource, AddExpenseDelegate {
+class ExpensesViewController: BaseViewController, UITableViewDataSource, AddExpenseDelegate {
 
     @IBOutlet private weak var noExpensesLabel: UILabel!
     @IBOutlet private weak var expensesTableView: UITableView!

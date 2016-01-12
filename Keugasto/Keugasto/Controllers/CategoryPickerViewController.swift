@@ -14,7 +14,7 @@ protocol CategoryPickerDelegate {
     optional func didCancelPickCategory()
 }
 
-class CategoryPickerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class CategoryPickerViewController: BaseViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     var delegate: CategoryPickerDelegate?
 

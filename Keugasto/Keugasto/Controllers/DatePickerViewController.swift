@@ -14,7 +14,7 @@ protocol DatePickerDelegate {
     optional func didCancelPickDate()
 }
 
-class DatePickerViewController: UIViewController {
+class DatePickerViewController: BaseViewController {
 
     var delegate: DatePickerDelegate?
 

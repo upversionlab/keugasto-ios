@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BalanceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BalanceViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet private weak var noCategoriesLabel: UILabel!
     @IBOutlet private weak var categoriesTableView: UITableView!

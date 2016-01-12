@@ -14,7 +14,7 @@ protocol AddCategoryDelegate {
     optional func didCancelAddCategory()
 }
 
-class AddCategoryViewController: UIViewController {
+class AddCategoryViewController: BaseViewController {
 
     var delegate: AddCategoryDelegate?
 

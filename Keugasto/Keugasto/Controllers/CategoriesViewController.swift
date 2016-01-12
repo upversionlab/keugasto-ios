@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoriesViewController: UIViewController, UITableViewDataSource, AddCategoryDelegate {
+class CategoriesViewController: BaseViewController, UITableViewDataSource, AddCategoryDelegate {
 
     @IBOutlet private weak var noCategoriesLabel: UILabel!
     @IBOutlet private weak var categoriesTableView: UITableView!

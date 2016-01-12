@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: BaseViewController {
 
     @IBOutlet private weak var contentContainerView: UIView!
     @IBOutlet private weak var menuContainerView: UIView!
@@ -18,6 +18,11 @@ class MainViewController: UIViewController {
     private var menuViewController: UIViewController!
 
     // MARK: UIViewController
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        view.backgroundColor = Constants.navigationBarColor
+    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "Menu Segue") {
@@ -31,7 +36,6 @@ class MainViewController: UIViewController {
         view.layoutIfNeeded()
 
         let shouldCloseMenu = menuConstraint.constant > 0
-
         if shouldCloseMenu {
             menuConstraint.constant = 0
         } else {

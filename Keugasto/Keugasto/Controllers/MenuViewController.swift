@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MenuViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     private let menuEntries = [
         "Expenses",
