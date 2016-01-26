@@ -60,9 +60,13 @@ class AddExpenseViewController: BaseViewController, UITextFieldDelegate, Categor
 
     // MARK: CategoryPickerDelegate
 
-    func didPickCategory(category: Category) {
-        selectedCategory = category
-        categoryTextField.text = selectedCategory.name
+    func didPickCategory(category: Category?) {
+        if category != nil {
+            selectedCategory = category
+            categoryTextField.text = selectedCategory.name
+        } else {
+            categoryTextField.text = ""
+        }
     }
 
     // MARK: DatePickerDelegate

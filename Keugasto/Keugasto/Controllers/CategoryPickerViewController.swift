@@ -10,14 +10,15 @@ import UIKit
 
 @objc
 protocol CategoryPickerDelegate {
-    optional func didPickCategory(category: Category)
+    optional func didPickCategory(category: Category?)
     optional func didCancelPickCategory()
 }
 
-class CategoryPickerViewController: BaseViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class CategoryPickerViewController: BaseViewController, AddCategoryDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
     var delegate: CategoryPickerDelegate?
 
+    @IBOutlet private weak var noCategoriesLabel: UILabel!
     @IBOutlet private weak var categoryPickerView: UIPickerView!
 
     private var categories: [Category]!
@@ -29,6 +30,32 @@ class CategoryPickerViewController: BaseViewController, UIPickerViewDataSource, 
         categories = Category.getAllCategories()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if categories.count > 0 {
+            noCategoriesLabel.hidden = true
+            categoryPickerView.hidden = false
+        } else {
+            noCategoriesLabel.hidden = false
+            categoryPickerView.hidden = true
+        }
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "Add New Category Segue" {
+            let navigationController = segue.destinationViewController as! UINavigationController
+            let addCategoryViewController = navigationController.topViewController as! AddCategoryViewController
+            addCategoryViewController.delegate = self
+        }
+    }
+
+    // MARK: AddCategoryDelegate
+
+    func didAddCategory(category: Category) {
+        categories.append(category)
+        categoryPickerView.reloadAllComponents()
+    }
+
     // MARK: UIPickerViewDataSource
 
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -36,7 +63,15 @@ class CategoryPickerViewController: BaseViewController, UIPickerViewDataSource, 
     }
 
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return categories.count
+        if categories.count > 0 {
+            noCategoriesLabel.hidden = true
+            categoryPickerView.hidden = false
+            return categories.count
+        } else {
+            noCategoriesLabel.hidden = false
+            categoryPickerView.hidden = true
+            return 0
+        }
     }
 
     // MARK: UIPickerViewDelegate
@@ -48,7 +83,12 @@ class CategoryPickerViewController: BaseViewController, UIPickerViewDataSource, 
     // MARK: IBActions
 
     @IBAction func didClickOk(sender: AnyObject) {
-        let category = categories[categoryPickerView.selectedRowInComponent(0)]
+        var category: Category? = nil
+
+        let selectedCategoryIndex = categoryPickerView.selectedRowInComponent(0)
+        if 0 <= selectedCategoryIndex && selectedCategoryIndex < categories.count {
+            category = categories[selectedCategoryIndex]
+        }
 
         dismissViewControllerAnimated(true) { () -> Void in
             self.delegate?.didPickCategory?(category)
