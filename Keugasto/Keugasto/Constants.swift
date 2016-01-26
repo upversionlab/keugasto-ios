@@ -12,7 +12,7 @@ class Constants: NSObject {
 
     class var navigationBarColor: UIColor {
         get {
-            return UIColor.purpleColor()
+            return UIColor.lightGrayColor()
         }
     }
 
