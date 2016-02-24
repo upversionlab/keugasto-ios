@@ -23,8 +23,10 @@ class AddExpenseViewController: BaseViewController, UITextFieldDelegate, Categor
     @IBOutlet private weak var dateTextField: UITextField!
     @IBOutlet private weak var userDescriptionTextField: UITextField!
 
-    private var selectedCategory: Category!
-    private var selectedDate: NSDate!
+    private var selectedCategory: Category?
+    private var selectedValue: Float?
+    private var selectedDate: NSDate?
+    private var selectedDescription: String?
 
     // MARK: UIViewController
 
@@ -45,6 +47,8 @@ class AddExpenseViewController: BaseViewController, UITextFieldDelegate, Categor
     // MARK: UITextFieldDelegate
 
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        textField.markAsValid()
+
         if textField == categoryTextField {
             performSegueWithIdentifier("Category Picker Segue", sender: nil)
             return false
@@ -63,7 +67,7 @@ class AddExpenseViewController: BaseViewController, UITextFieldDelegate, Categor
     func didPickCategory(category: Category?) {
         if category != nil {
             selectedCategory = category
-            categoryTextField.text = selectedCategory.name
+            categoryTextField.text = selectedCategory!.name
         } else {
             categoryTextField.text = ""
         }
@@ -76,7 +80,7 @@ class AddExpenseViewController: BaseViewController, UITextFieldDelegate, Categor
 
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
-        dateFormatter.timeStyle = NSDateFormatterStyle.MediumStyle
+        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
 
         dateTextField.text = dateFormatter.stringFromDate(date)
     }
@@ -84,13 +88,19 @@ class AddExpenseViewController: BaseViewController, UITextFieldDelegate, Categor
     // MARK: IBActions
 
     @IBAction func didClickOnAdd(sender: AnyObject) {
-        let value = Float(valueTextField.text!)!
-        let userDescription = userDescriptionTextField.text
+        selectedValue = nil
+        if valueTextField.text != nil {
+            selectedValue = Float(valueTextField.text!)
+        }
 
-        let expense = Expense.newInstance(selectedCategory, value: value, date: selectedDate, userDescription: userDescription)
+        selectedDescription = userDescriptionTextField.text
 
-        dismissViewControllerAnimated(true) { () -> Void in
-            self.delegate?.didAddExpense?(expense)
+        if validateInputs() {
+            let expense = Expense.newInstance(selectedCategory!, value: selectedValue!, date: selectedDate!, userDescription: selectedDescription)
+
+            dismissViewControllerAnimated(true) { () -> Void in
+                self.delegate?.didAddExpense?(expense)
+            }
         }
     }
 
@@ -99,4 +109,28 @@ class AddExpenseViewController: BaseViewController, UITextFieldDelegate, Categor
             self.delegate?.didCancelAddExpense?()
         }
     }
+
+    // MARK: Private methods
+
+    private func validateInputs() -> Bool {
+        var valid = true
+
+        if selectedCategory == nil {
+            categoryTextField.markAsInvalid()
+            valid = false
+        }
+
+        if selectedValue == nil {
+            valueTextField.markAsInvalid()
+            valid = false
+        }
+
+        if selectedDate == nil {
+            dateTextField.markAsInvalid()
+            valid = false
+        }
+
+        return valid
+    }
+
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD78B39E1C7E6C4000F9B460 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD78B39D1C7E6C4000F9B460 /* Extensions.swift */; };
 		AD835E5C1BE95E3D00F40BD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD835E5B1BE95E3D00F40BD9 /* AppDelegate.swift */; };
 		AD835E611BE95E3D00F40BD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD835E5F1BE95E3D00F40BD9 /* Main.storyboard */; };
 		AD835E661BE95E3D00F40BD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD835E651BE95E3D00F40BD9 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD78B39D1C7E6C4000F9B460 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AD835E581BE95E3D00F40BD9 /* Keugasto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Keugasto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD835E5B1BE95E3D00F40BD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD835E601BE95E3D00F40BD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				AD835E6A1BE95E3D00F40BD9 /* Info.plist */,
 				AD835E5B1BE95E3D00F40BD9 /* AppDelegate.swift */,
 				AD8783721C45B22900497CF0 /* Constants.swift */,
+				AD78B39D1C7E6C4000F9B460 /* Extensions.swift */,
 				AD835E651BE95E3D00F40BD9 /* Assets.xcassets */,
 				AD835E771BE9799A00F40BD9 /* Controllers */,
 				AD835E7A1BE9799A00F40BD9 /* Models */,
@@ -214,6 +217,7 @@
 				ADB1123E1C0E632A00596F23 /* DatePickerViewController.swift in Sources */,
 				AD835E5C1BE95E3D00F40BD9 /* AppDelegate.swift in Sources */,
 				AD835E7E1BE9799A00F40BD9 /* MenuViewController.swift in Sources */,
+				AD78B39E1C7E6C4000F9B460 /* Extensions.swift in Sources */,
 				AD8783711C45AA7800497CF0 /* BaseViewController.swift in Sources */,
 				ADF102AC1BF2A9070033A43C /* MenuEntryTableViewCell.swift in Sources */,
 				AD835E7D1BE9799A00F40BD9 /* MainViewController.swift in Sources */,

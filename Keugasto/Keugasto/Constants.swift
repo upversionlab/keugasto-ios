@@ -10,10 +10,7 @@ import UIKit
 
 class Constants: NSObject {
 
-    class var navigationBarColor: UIColor {
-        get {
-            return UIColor.lightGrayColor()
-        }
-    }
+    static let navigationBarColor = UIColor(rgba: 0x90C3D4FF)
+    static let invalidInputColor  = UIColor(rgba: 0xFF000055)
 
 }

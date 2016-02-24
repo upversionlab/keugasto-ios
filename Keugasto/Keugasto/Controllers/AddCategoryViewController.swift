@@ -14,25 +14,42 @@ protocol AddCategoryDelegate {
     optional func didCancelAddCategory()
 }
 
-class AddCategoryViewController: BaseViewController {
+class AddCategoryViewController: BaseViewController, UITextFieldDelegate {
 
     var delegate: AddCategoryDelegate?
 
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var limitTextField: UITextField!
 
+    private var selectedName: String?
+    private var selectedLimit: Float?
+
+    // MARK: UITextFieldDelegate
+
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        textField.markAsValid()
+        return true
+    }
+
     // MARK: IBActions
 
     @IBAction func didClickOnAdd(sender: AnyObject) {
-        var limit: Float? = nil
-        if limitTextField.text != nil {
-            limit = Float(limitTextField.text!)
+        selectedName = nil
+        if nameTextField.text != nil {
+            selectedName = nameTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         }
 
-        let category = Category.newInstance(nameTextField.text!, limit: limit)
+        selectedLimit = nil
+        if limitTextField.text != nil {
+            selectedLimit = Float(limitTextField.text!)
+        }
 
-        dismissViewControllerAnimated(true) { () -> Void in
-            self.delegate?.didAddCategory?(category)
+        if validateInputs() {
+            let category = Category.newInstance(selectedName!, limit: selectedLimit)
+
+            dismissViewControllerAnimated(true) { () -> Void in
+                self.delegate?.didAddCategory?(category)
+            }
         }
     }
 
@@ -40,6 +57,19 @@ class AddCategoryViewController: BaseViewController {
         dismissViewControllerAnimated(true) { () -> Void in
             self.delegate?.didCancelAddCategory?()
         }
+    }
+
+    // MARK: Private methods
+
+    private func validateInputs() -> Bool {
+        var valid = true
+
+        if selectedName == nil || selectedName!.characters.count == 0 {
+            nameTextField.markAsInvalid()
+            valid = false
+        }
+        
+        return valid
     }
 
 }
