@@ -10,35 +10,35 @@ import UIKit
 
 @objc
 protocol AddExpenseDelegate {
-    optional func didAddExpense(expense: Expense)
-    optional func didCancelAddExpense()
+    @objc optional func didAddExpense(_ expense: Expense)
+    @objc optional func didCancelAddExpense()
 }
 
 class AddExpenseViewController: BaseViewController, UITextFieldDelegate, CategoryPickerDelegate, DatePickerDelegate {
 
     var delegate: AddExpenseDelegate?
 
-    @IBOutlet private weak var categoryTextField: UITextField!
-    @IBOutlet private weak var valueTextField: UITextField!
-    @IBOutlet private weak var dateTextField: UITextField!
-    @IBOutlet private weak var userDescriptionTextField: UITextField!
+    @IBOutlet fileprivate weak var categoryTextField: UITextField!
+    @IBOutlet fileprivate weak var valueTextField: UITextField!
+    @IBOutlet fileprivate weak var dateTextField: UITextField!
+    @IBOutlet fileprivate weak var userDescriptionTextField: UITextField!
 
-    private var selectedCategory: Category?
-    private var selectedValue: Float?
-    private var selectedDate: NSDate?
-    private var selectedDescription: String?
+    fileprivate var selectedCategory: Category?
+    fileprivate var selectedValue: Float?
+    fileprivate var selectedDate: Date?
+    fileprivate var selectedDescription: String?
 
     // MARK: UIViewController
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Category Picker Segue" {
-            let categoryPickerViewController = segue.destinationViewController as! CategoryPickerViewController
+            let categoryPickerViewController = segue.destination as! CategoryPickerViewController
             categoryPickerViewController.delegate = self
             return
         }
 
         if segue.identifier == "Date Picker Segue" {
-            let datePickerViewController = segue.destinationViewController as! DatePickerViewController
+            let datePickerViewController = segue.destination as! DatePickerViewController
             datePickerViewController.delegate = self
             return
         }
@@ -46,16 +46,16 @@ class AddExpenseViewController: BaseViewController, UITextFieldDelegate, Categor
 
     // MARK: UITextFieldDelegate
 
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         textField.markAsValid()
 
         if textField == categoryTextField {
-            performSegueWithIdentifier("Category Picker Segue", sender: nil)
+            performSegue(withIdentifier: "Category Picker Segue", sender: nil)
             return false
         }
 
         if textField == dateTextField {
-            performSegueWithIdentifier("Date Picker Segue", sender: nil)
+            performSegue(withIdentifier: "Date Picker Segue", sender: nil)
             return false
         }
 
@@ -64,7 +64,7 @@ class AddExpenseViewController: BaseViewController, UITextFieldDelegate, Categor
 
     // MARK: CategoryPickerDelegate
 
-    func didPickCategory(category: Category?) {
+    func didPickCategory(_ category: Category?) {
         if category != nil {
             selectedCategory = category
             categoryTextField.text = selectedCategory!.name
@@ -75,19 +75,19 @@ class AddExpenseViewController: BaseViewController, UITextFieldDelegate, Categor
 
     // MARK: DatePickerDelegate
 
-    func didPickDate(date: NSDate) {
+    func didPickDate(_ date: Date) {
         selectedDate = date
 
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.short
 
-        dateTextField.text = dateFormatter.stringFromDate(date)
+        dateTextField.text = dateFormatter.string(from: date)
     }
 
     // MARK: IBActions
 
-    @IBAction func didClickOnAdd(sender: AnyObject) {
+    @IBAction func didClickOnAdd(_ sender: AnyObject) {
         selectedValue = nil
         if valueTextField.text != nil {
             selectedValue = Float(valueTextField.text!)
@@ -98,21 +98,21 @@ class AddExpenseViewController: BaseViewController, UITextFieldDelegate, Categor
         if validateInputs() {
             let expense = Expense.newInstance(selectedCategory!, value: selectedValue!, date: selectedDate!, userDescription: selectedDescription)
 
-            dismissViewControllerAnimated(true) { () -> Void in
+            dismiss(animated: true) { () -> Void in
                 self.delegate?.didAddExpense?(expense)
             }
         }
     }
 
-    @IBAction func didClickOnCancel(sender: AnyObject) {
-        dismissViewControllerAnimated(true) { () -> Void in
+    @IBAction func didClickOnCancel(_ sender: AnyObject) {
+        dismiss(animated: true) { () -> Void in
             self.delegate?.didCancelAddExpense?()
         }
     }
 
     // MARK: Private methods
 
-    private func validateInputs() -> Bool {
+    fileprivate func validateInputs() -> Bool {
         var valid = true
 
         if selectedCategory == nil {

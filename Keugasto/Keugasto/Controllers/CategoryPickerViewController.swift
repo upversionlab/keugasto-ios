@@ -10,18 +10,18 @@ import UIKit
 
 @objc
 protocol CategoryPickerDelegate {
-    optional func didPickCategory(category: Category?)
-    optional func didCancelPickCategory()
+    @objc optional func didPickCategory(_ category: Category?)
+    @objc optional func didCancelPickCategory()
 }
 
 class CategoryPickerViewController: BaseViewController, AddCategoryDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
     var delegate: CategoryPickerDelegate?
 
-    @IBOutlet private weak var noCategoriesLabel: UILabel!
-    @IBOutlet private weak var categoryPickerView: UIPickerView!
+    @IBOutlet fileprivate weak var noCategoriesLabel: UILabel!
+    @IBOutlet fileprivate weak var categoryPickerView: UIPickerView!
 
-    private var categories: [Category]!
+    fileprivate var categories: [Category]!
 
     // MARK: UIViewController
 
@@ -30,20 +30,20 @@ class CategoryPickerViewController: BaseViewController, AddCategoryDelegate, UIP
         categories = Category.getAllCategories()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if categories.count > 0 {
-            noCategoriesLabel.hidden = true
-            categoryPickerView.hidden = false
+            noCategoriesLabel.isHidden = true
+            categoryPickerView.isHidden = false
         } else {
-            noCategoriesLabel.hidden = false
-            categoryPickerView.hidden = true
+            noCategoriesLabel.isHidden = false
+            categoryPickerView.isHidden = true
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Add New Category Segue" {
-            let navigationController = segue.destinationViewController as! UINavigationController
+            let navigationController = segue.destination as! UINavigationController
             let addCategoryViewController = navigationController.topViewController as! AddCategoryViewController
             addCategoryViewController.delegate = self
         }
@@ -51,52 +51,52 @@ class CategoryPickerViewController: BaseViewController, AddCategoryDelegate, UIP
 
     // MARK: AddCategoryDelegate
 
-    func didAddCategory(category: Category) {
+    func didAddCategory(_ category: Category) {
         categories.append(category)
         categoryPickerView.reloadAllComponents()
     }
 
     // MARK: UIPickerViewDataSource
 
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
 
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if categories.count > 0 {
-            noCategoriesLabel.hidden = true
-            categoryPickerView.hidden = false
+            noCategoriesLabel.isHidden = true
+            categoryPickerView.isHidden = false
             return categories.count
         } else {
-            noCategoriesLabel.hidden = false
-            categoryPickerView.hidden = true
+            noCategoriesLabel.isHidden = false
+            categoryPickerView.isHidden = true
             return 0
         }
     }
 
     // MARK: UIPickerViewDelegate
 
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categories[row].name
     }
 
     // MARK: IBActions
 
-    @IBAction func didClickOk(sender: AnyObject) {
+    @IBAction func didClickOk(_ sender: AnyObject) {
         var category: Category? = nil
 
-        let selectedCategoryIndex = categoryPickerView.selectedRowInComponent(0)
+        let selectedCategoryIndex = categoryPickerView.selectedRow(inComponent: 0)
         if 0 <= selectedCategoryIndex && selectedCategoryIndex < categories.count {
             category = categories[selectedCategoryIndex]
         }
 
-        dismissViewControllerAnimated(true) { () -> Void in
+        dismiss(animated: true) { () -> Void in
             self.delegate?.didPickCategory?(category)
         }
     }
 
-    @IBAction func didClickOutside(sender: AnyObject) {
-        dismissViewControllerAnimated(true) { () -> Void in
+    @IBAction func didClickOutside(_ sender: AnyObject) {
+        dismiss(animated: true) { () -> Void in
             self.delegate?.didCancelPickCategory?()
         }
     }

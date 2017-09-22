@@ -10,33 +10,33 @@ import UIKit
 
 @objc
 protocol AddCategoryDelegate {
-    optional func didAddCategory(category: Category)
-    optional func didCancelAddCategory()
+    @objc optional func didAddCategory(_ category: Category)
+    @objc optional func didCancelAddCategory()
 }
 
 class AddCategoryViewController: BaseViewController, UITextFieldDelegate {
 
     var delegate: AddCategoryDelegate?
 
-    @IBOutlet private weak var nameTextField: UITextField!
-    @IBOutlet private weak var limitTextField: UITextField!
+    @IBOutlet fileprivate weak var nameTextField: UITextField!
+    @IBOutlet fileprivate weak var limitTextField: UITextField!
 
-    private var selectedName: String?
-    private var selectedLimit: Float?
+    fileprivate var selectedName: String?
+    fileprivate var selectedLimit: Float?
 
     // MARK: UITextFieldDelegate
 
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         textField.markAsValid()
         return true
     }
 
     // MARK: IBActions
 
-    @IBAction func didClickOnAdd(sender: AnyObject) {
+    @IBAction func didClickOnAdd(_ sender: AnyObject) {
         selectedName = nil
         if nameTextField.text != nil {
-            selectedName = nameTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            selectedName = nameTextField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         }
 
         selectedLimit = nil
@@ -47,21 +47,21 @@ class AddCategoryViewController: BaseViewController, UITextFieldDelegate {
         if validateInputs() {
             let category = Category.newInstance(selectedName!, limit: selectedLimit)
 
-            dismissViewControllerAnimated(true) { () -> Void in
+            dismiss(animated: true) { () -> Void in
                 self.delegate?.didAddCategory?(category)
             }
         }
     }
 
-    @IBAction func didCancel(sender: AnyObject) {
-        dismissViewControllerAnimated(true) { () -> Void in
+    @IBAction func didCancel(_ sender: AnyObject) {
+        dismiss(animated: true) { () -> Void in
             self.delegate?.didCancelAddCategory?()
         }
     }
 
     // MARK: Private methods
 
-    private func validateInputs() -> Bool {
+    fileprivate func validateInputs() -> Bool {
         var valid = true
 
         if selectedName == nil || selectedName!.characters.count == 0 {

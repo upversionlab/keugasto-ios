@@ -10,28 +10,28 @@ import UIKit
 
 @objc
 protocol DatePickerDelegate {
-    optional func didPickDate(date: NSDate)
-    optional func didCancelPickDate()
+    @objc optional func didPickDate(_ date: Date)
+    @objc optional func didCancelPickDate()
 }
 
 class DatePickerViewController: BaseViewController {
 
     var delegate: DatePickerDelegate?
 
-    @IBOutlet private weak var datePickerView: UIDatePicker!
+    @IBOutlet fileprivate weak var datePickerView: UIDatePicker!
 
     // MARK: IBActions
 
-    @IBAction func didClickOk(sender: AnyObject) {
+    @IBAction func didClickOk(_ sender: AnyObject) {
         let date = datePickerView.date
 
-        dismissViewControllerAnimated(true) { () -> Void in
+        dismiss(animated: true) { () -> Void in
             self.delegate?.didPickDate?(date)
         }
     }
 
-    @IBAction func didClickOutside(sender: AnyObject) {
-        dismissViewControllerAnimated(true) { () -> Void in
+    @IBAction func didClickOutside(_ sender: AnyObject) {
+        dismiss(animated: true) { () -> Void in
             self.delegate?.didCancelPickDate?()
         }
     }

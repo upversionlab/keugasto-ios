@@ -10,10 +10,10 @@ import UIKit
 
 class CategoriesViewController: BaseViewController, UITableViewDataSource, AddCategoryDelegate {
 
-    @IBOutlet private weak var noCategoriesLabel: UILabel!
-    @IBOutlet private weak var categoriesTableView: UITableView!
+    @IBOutlet fileprivate weak var noCategoriesLabel: UILabel!
+    @IBOutlet fileprivate weak var categoriesTableView: UITableView!
 
-    private var categories: [Category]!
+    fileprivate var categories: [Category]!
 
     // MARK: UIViewController
 
@@ -22,9 +22,9 @@ class CategoriesViewController: BaseViewController, UITableViewDataSource, AddCa
         categories = Category.getAllCategories()
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Add Category Segue" {
-            let navigationController = segue.destinationViewController as! UINavigationController
+            let navigationController = segue.destination as! UINavigationController
             let addCategoryViewController = navigationController.topViewController as! AddCategoryViewController
             addCategoryViewController.delegate = self
         }
@@ -32,35 +32,35 @@ class CategoriesViewController: BaseViewController, UITableViewDataSource, AddCa
 
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if categories.count > 0 {
-            noCategoriesLabel.hidden = true
-            categoriesTableView.hidden = false
+            noCategoriesLabel.isHidden = true
+            categoriesTableView.isHidden = false
             return categories.count
         } else {
-            noCategoriesLabel.hidden = false
-            categoriesTableView.hidden = true
+            noCategoriesLabel.isHidden = false
+            categoriesTableView.isHidden = true
             return 0
         }
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Category", forIndexPath: indexPath) as! CategoryTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Category", for: indexPath) as! CategoryTableViewCell
         cell.nameLabel.text = categories[indexPath.row].name
         return cell
     }
 
     // MARK: AddCategoryDelegate
 
-    func didAddCategory(category: Category) {
+    func didAddCategory(_ category: Category) {
         categories.append(category)
         categoriesTableView.reloadData()
     }
 
     // MARK: IBActions
 
-    @IBAction func didClickOnMenu(sender: AnyObject) {
-        let mainViewController = UIApplication.sharedApplication().keyWindow?.rootViewController as? MainViewController
+    @IBAction func didClickOnMenu(_ sender: AnyObject) {
+        let mainViewController = UIApplication.shared.keyWindow?.rootViewController as? MainViewController
         mainViewController?.didClickOnMenu()
     }
 

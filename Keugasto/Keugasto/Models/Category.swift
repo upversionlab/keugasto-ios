@@ -22,7 +22,7 @@ class Category: NSManagedObject {
         }
 
         set(newLimit) {
-            limitNumber = newLimit
+            limitNumber = newLimit! as NSNumber
         }
     }
 
@@ -33,12 +33,12 @@ class Category: NSManagedObject {
     }
 
     class func getAllCategories() -> [Category] {
-        let fetchRequest = NSFetchRequest(entityName: "Category")
-        return (try? AppDelegate.instance().managedObjectContext.executeFetchRequest(fetchRequest) ?? []) as! [Category]
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
+        return (try? AppDelegate.instance().managedObjectContext.fetch(fetchRequest) as! [Category]) ?? []
     }
 
-    class func newInstance(name: String, limit: Float?) -> Category {
-        let category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: AppDelegate.instance().managedObjectContext) as! Category
+    class func newInstance(_ name: String, limit: Float?) -> Category {
+        let category = NSEntityDescription.insertNewObject(forEntityName: "Category", into: AppDelegate.instance().managedObjectContext) as! Category
         category.name = name
         category.limit = limit
 

@@ -14,7 +14,7 @@ class Expense: NSManagedObject {
 
     @NSManaged var category: Category!
     @NSManaged var valueNumber: NSNumber!
-    @NSManaged var date: NSDate!
+    @NSManaged var date: Date!
     @NSManaged var userDescription: String?
 
     var value: Float! {
@@ -23,17 +23,17 @@ class Expense: NSManagedObject {
         }
 
         set(newValue) {
-            valueNumber = newValue
+            valueNumber = newValue! as NSNumber
         }
     }
 
     class func getAllExpenses() -> [Expense] {
-        let fetchRequest = NSFetchRequest(entityName: "Expense")
-        return (try? AppDelegate.instance().managedObjectContext.executeFetchRequest(fetchRequest) ?? []) as! [Expense]
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
+        return (try? AppDelegate.instance().managedObjectContext.fetch(fetchRequest) as! [Expense]) ?? []
     }
 
-    class func newInstance(category: Category, value: Float, date: NSDate, userDescription: String?) -> Expense {
-        let expense = NSEntityDescription.insertNewObjectForEntityForName("Expense", inManagedObjectContext: AppDelegate.instance().managedObjectContext) as! Expense
+    class func newInstance(_ category: Category, value: Float, date: Date, userDescription: String?) -> Expense {
+        let expense = NSEntityDescription.insertNewObject(forEntityName: "Expense", into: AppDelegate.instance().managedObjectContext) as! Expense
         expense.category = category
         expense.value = value
         expense.date = date

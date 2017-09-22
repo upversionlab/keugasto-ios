@@ -10,10 +10,10 @@ import UIKit
 
 class BalanceViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
-    @IBOutlet private weak var noCategoriesLabel: UILabel!
-    @IBOutlet private weak var categoriesTableView: UITableView!
+    @IBOutlet fileprivate weak var noCategoriesLabel: UILabel!
+    @IBOutlet fileprivate weak var categoriesTableView: UITableView!
 
-    private var categories : [Category]!
+    fileprivate var categories : [Category]!
 
     // MARK: UIViewController
 
@@ -24,19 +24,19 @@ class BalanceViewController: BaseViewController, UITableViewDataSource, UITableV
 
     // MARK: UITableViewDataSource
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if categories.count > 0 {
-            noCategoriesLabel.hidden = true
-            categoriesTableView.hidden = false
+            noCategoriesLabel.isHidden = true
+            categoriesTableView.isHidden = false
             return categories.count
         } else {
-            noCategoriesLabel.hidden = false
-            categoriesTableView.hidden = true
+            noCategoriesLabel.isHidden = false
+            categoriesTableView.isHidden = true
             return 0
         }
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let category = categories[section]
 
         if category.expenses.count > 0 {
@@ -46,37 +46,37 @@ class BalanceViewController: BaseViewController, UITableViewDataSource, UITableV
         }
     }
 
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let category = categories[section]
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("Category") as! CategoryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Category") as! CategoryTableViewCell
         cell.nameLabel.text = category.name
         return cell
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let category = categories[indexPath.section]
 
         if category.expenses.count > 0 {
             let expense = category.expenses[indexPath.row]
 
-            let numberFormatter = NSNumberFormatter()
-            numberFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.currency
 
-            let cell = tableView.dequeueReusableCellWithIdentifier("Expense", forIndexPath: indexPath) as! ExpenseTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Expense", for: indexPath) as! ExpenseTableViewCell
             cell.nameLabel.text = expense.category.name
-            cell.valueLabel.text = numberFormatter.stringFromNumber(expense.value)
+            cell.valueLabel.text = numberFormatter.string(from: expense.value! as NSNumber)
             
             return cell
         } else {
-            return tableView.dequeueReusableCellWithIdentifier("Empty Category")!
+            return tableView.dequeueReusableCell(withIdentifier: "Empty Category")!
         }
     }
 
     // MARK: IBActions
 
-    @IBAction func didClickOnMenu(sender: AnyObject) {
-        let mainViewController = UIApplication.sharedApplication().keyWindow?.rootViewController as? MainViewController
+    @IBAction func didClickOnMenu(_ sender: AnyObject) {
+        let mainViewController = UIApplication.shared.keyWindow?.rootViewController as? MainViewController
         mainViewController?.didClickOnMenu()
     }
 

@@ -10,23 +10,23 @@ import UIKit
 
 class MainViewController: BaseViewController {
 
-    @IBOutlet private weak var contentContainerView: UIView!
-    @IBOutlet private weak var menuContainerView: UIView!
-    @IBOutlet private weak var menuBackgroundView: UIView!
-    @IBOutlet private weak var menuConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var contentContainerView: UIView!
+    @IBOutlet fileprivate weak var menuContainerView: UIView!
+    @IBOutlet fileprivate weak var menuBackgroundView: UIView!
+    @IBOutlet fileprivate weak var menuConstraint: NSLayoutConstraint!
 
-    private var menuViewController: UIViewController!
+    fileprivate var menuViewController: UIViewController!
 
     // MARK: UIViewController
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         view.backgroundColor = Constants.navigationBarColor
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "Menu Segue") {
-            menuViewController = segue.destinationViewController
+            menuViewController = segue.destination
         }
     }
 
@@ -40,30 +40,30 @@ class MainViewController: BaseViewController {
             menuConstraint.constant = 0
         } else {
             menuConstraint.constant = menuContainerView.frame.width
-            menuBackgroundView.hidden = false
+            menuBackgroundView.isHidden = false
         }
 
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
             self.view.layoutIfNeeded()
-        }) { (Bool) -> Void in
+        }, completion: { (Bool) -> Void in
             if shouldCloseMenu {
-                self.menuBackgroundView.hidden = true
+                self.menuBackgroundView.isHidden = true
             }
-        }
+        }) 
     }
 
-    @IBAction private func didClickOutsideMenu(sender: AnyObject) {
+    @IBAction fileprivate func didClickOutsideMenu(_ sender: AnyObject) {
         didClickOnMenu()
     }
 
-    func switchToViewControllerWithIdentifier(identifier: String) {
-        let viewController = storyboard?.instantiateViewControllerWithIdentifier(identifier)
+    func switchToViewControllerWithIdentifier(_ identifier: String) {
+        let viewController = storyboard?.instantiateViewController(withIdentifier: identifier)
         if viewController != nil {
             replaceContentViewControllerBy(viewController!)
         }
     }
 
-    private func replaceContentViewControllerBy(viewController: UIViewController) {
+    fileprivate func replaceContentViewControllerBy(_ viewController: UIViewController) {
         // Remove all child view controllers that are not the menu view controller
         for viewController in childViewControllers {
             if viewController != menuViewController {
@@ -83,7 +83,7 @@ class MainViewController: BaseViewController {
         contentContainerView.addSubview(viewController.view)
 
         // Notifying the view controller of these movements
-        viewController.didMoveToParentViewController(self)
+        viewController.didMove(toParentViewController: self)
     }
 
 }

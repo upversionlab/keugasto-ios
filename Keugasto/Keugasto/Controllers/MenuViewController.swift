@@ -10,7 +10,7 @@ import UIKit
 
 class MenuViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
-    private let menuEntries = [
+    fileprivate let menuEntries = [
         "Expenses",
         "Categories",
         "Balance"
@@ -18,18 +18,18 @@ class MenuViewController: BaseViewController, UITableViewDataSource, UITableView
 
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuEntries.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Menu Entry", forIndexPath: indexPath) as! MenuEntryTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Menu Entry", for: indexPath) as! MenuEntryTableViewCell
         cell.menuEntryLabel.text = menuEntries[indexPath.row]
         return cell
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let mainViewController = UIApplication.sharedApplication().keyWindow?.rootViewController as? MainViewController
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let mainViewController = UIApplication.shared.keyWindow?.rootViewController as? MainViewController
         mainViewController?.switchToViewControllerWithIdentifier("\(menuEntries[indexPath.row]) Screen")
         mainViewController?.didClickOnMenu()
     }

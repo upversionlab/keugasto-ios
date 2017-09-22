@@ -10,10 +10,10 @@ import UIKit
 
 class ExpensesViewController: BaseViewController, UITableViewDataSource, AddExpenseDelegate {
 
-    @IBOutlet private weak var noExpensesLabel: UILabel!
-    @IBOutlet private weak var expensesTableView: UITableView!
+    @IBOutlet fileprivate weak var noExpensesLabel: UILabel!
+    @IBOutlet fileprivate weak var expensesTableView: UITableView!
 
-    private var expenses : [Expense]!
+    fileprivate var expenses : [Expense]!
 
     // MARK: UIViewController
 
@@ -22,9 +22,9 @@ class ExpensesViewController: BaseViewController, UITableViewDataSource, AddExpe
         expenses = Expense.getAllExpenses()
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Add Expense Segue" {
-            let navigationController = segue.destinationViewController as! UINavigationController
+            let navigationController = segue.destination as! UINavigationController
             let addExpenseViewController = navigationController.topViewController as! AddExpenseViewController
             addExpenseViewController.delegate = self
         }
@@ -32,42 +32,42 @@ class ExpensesViewController: BaseViewController, UITableViewDataSource, AddExpe
 
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if expenses.count > 0 {
-            noExpensesLabel.hidden = true
-            expensesTableView.hidden = false
+            noExpensesLabel.isHidden = true
+            expensesTableView.isHidden = false
             return expenses.count
         } else {
-            noExpensesLabel.hidden = false
-            expensesTableView.hidden = true
+            noExpensesLabel.isHidden = false
+            expensesTableView.isHidden = true
             return 0
         }
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let expense = expenses[indexPath.row]
 
-        let numberFormatter = NSNumberFormatter()
-        numberFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.currency
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("Expense", forIndexPath: indexPath) as! ExpenseTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Expense", for: indexPath) as! ExpenseTableViewCell
         cell.nameLabel.text = expense.category.name
-        cell.valueLabel.text = numberFormatter.stringFromNumber(expense.value)
+        cell.valueLabel.text = numberFormatter.string(from: expense.value! as NSNumber)
 
         return cell
     }
 
     // MARK: AddExpenseDelegate
 
-    func didAddExpense(expense: Expense) {
+    func didAddExpense(_ expense: Expense) {
         expenses.append(expense)
         expensesTableView.reloadData()
     }
 
     // MARK: IBActions
 
-    @IBAction func didClickOnMenu(sender: AnyObject) {
-        let mainViewController = UIApplication.sharedApplication().keyWindow?.rootViewController as? MainViewController
+    @IBAction func didClickOnMenu(_ sender: AnyObject) {
+        let mainViewController = UIApplication.shared.keyWindow?.rootViewController as? MainViewController
         mainViewController?.didClickOnMenu()
     }
     
